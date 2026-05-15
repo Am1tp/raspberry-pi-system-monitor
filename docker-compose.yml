@@ -33,6 +33,11 @@ services:
     container_name: pimonitor-grafana
     ports:
       - "3000:3000"
+    volumes:
+      - grafana-data:/var/lib/grafana
     depends_on:
       - prometheus
     restart: unless-stopped
+
+volumes:
+  grafana-data:
