@@ -27,3 +27,12 @@ services:
     depends_on:
       - pimonitor
     restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: pimonitor-grafana
+    ports:
+      - "3000:3000"
+    depends_on:
+      - prometheus
+    restart: unless-stopped
