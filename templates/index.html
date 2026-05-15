@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pi System Monitor</title>
+    <style>
+        body {
+            font-family: Arial;
+            margin: 40px;
+        }
+        .box {
+            padding: 15px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Raspberry Pi System Dashboard</h1>
+
+<div class="box">
+    <h3>CPU Usage</h3>
+    <div id="cpu">Loading...</div>
+</div>
+
+<div class="box">
+    <h3>Memory Usage</h3>
+    <div id="memory">Loading...</div>
+</div>
+
+<div class="box">
+    <h3>Disk Usage</h3>
+    <div id="disk">Loading...</div>
+</div>
+
+<script>
+async function fetchStats() {
+    const response = await fetch('/stats');
+    const data = await response.json();
+
+    document.getElementById('cpu').innerText =
+        data.cpu_percent + "%";
+
+    document.getElementById('memory').innerText =
+        (data.memory.percent || 0) + "% used";
+
+    document.getElementById('disk').innerText =
+        (data.disk.percent || 0) + "% used";
+}
+
+setInterval(fetchStats, 2000);
+fetchStats();
+</script>
+
+</body>
+</html>
