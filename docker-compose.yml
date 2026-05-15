@@ -16,3 +16,14 @@ services:
     depends_on:
       - pimonitor
     restart: unless-stopped
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: pimonitor-prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    depends_on:
+      - pimonitor
+    restart: unless-stopped
