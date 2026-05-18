@@ -1,0 +1,14 @@
+global:
+  resolve_timeout: 5m
+
+route:
+  receiver: "slack-alerts"
+
+receivers:
+  - name: "slack-alerts"
+    slack_configs:
+      - api_url: "YOUR_SLACK_WEBHOOK_URL_HERE"
+        channel: "#pi-alerts"
+        send_resolved: true
+        title: "Pi Monitor Alert: {{ .CommonLabels.alertname }}"
+        text: "{{ range .Alerts }}{{ .Annotations.summary }}\n{{ .Annotations.description }}{{ end }}"

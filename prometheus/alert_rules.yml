@@ -1,0 +1,30 @@
+groups:
+  - name: raspberrypi-alerts
+    rules:
+
+      - alert: HighCPUUsage
+        expr: pi_cpu_usage_percent > 80
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High CPU usage detected"
+          description: "CPU usage is above 80% for more than 2 minutes."
+
+      - alert: HighDiskUsage
+        expr: pi_disk_usage_percent > 85
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High disk usage detected"
+          description: "Disk usage is above 85%."
+
+      - alert: HighTemperature
+        expr: pi_temperature_celsius > 70
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "High Raspberry Pi temperature"
+          description: "Pi temperature is above 70°C."
