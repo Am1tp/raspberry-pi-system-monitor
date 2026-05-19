@@ -1,26 +1,62 @@
 # Raspberry Pi Monitoring Stack
 
-A containerised Raspberry Pi monitoring and observability stack built with Flask, Docker, Nginx, Prometheus and Grafana.
+A containerised Raspberry Pi monitoring and observability stack running on a Raspberry Pi using Docker Compose, Prometheus, Grafana, Alertmanager and Pi-hole DNS filtering.
+
+---
 
 ## Features
 
+### Core Monitoring
 - Real-time Raspberry Pi system monitoring
-- Dockerised Flask application
+- Custom Prometheus metrics using Flask and psutil
+- Dockerised monitoring services
 - Docker Compose orchestration
 - Nginx reverse proxy
+
+### Observability Stack
 - Prometheus metrics scraping
-- Grafana dashboards
-- Custom Raspberry Pi metrics
-- Persistent Grafana storage
+- Grafana operational dashboards
+- Alertmanager alert routing
+- Slack webhook alert notifications
+- Custom Prometheus alert rules
+
+### Pi-hole DNS Monitoring
+- Pi-hole DNS filtering and telemetry
+- Pi-hole Prometheus exporter
+- DNS query monitoring
+- Blocked query analytics
+- Client activity monitoring
+- Upstream DNS visibility
+
+### Operational Features
 - Health check endpoint
+- Persistent Grafana storage
 - Environment variable configuration
+- Containerised architecture
+- Real-time dashboard monitoring
+- Infrastructure observability testing
+
+---
 
 ## Metrics Collected
 
+### Raspberry Pi Metrics
 - CPU usage
 - Memory usage
 - Disk usage
 - Raspberry Pi temperature
+
+### Pi-hole Metrics
+- Total DNS queries
+- Blocked DNS queries
+- Active clients
+- Query status breakdown
+- Query type analysis
+- Upstream DNS destinations
+- DNS traffic trends
+- Blocklist statistics
+
+---
 
 ## Technology Stack
 
@@ -31,39 +67,56 @@ A containerised Raspberry Pi monitoring and observability stack built with Flask
 - Nginx
 - Prometheus
 - Grafana
+- Alertmanager
+- Pi-hole
 - psutil
+
+---
 
 ## Architecture
 
-```text
-Browser
-   ↓
-Nginx Reverse Proxy
-   ↓
-Flask PiMonitor Application
-   ↓
-Prometheus Metrics Endpoint
-   ↓
-Grafana Dashboards
-```
+![Pi-hole Observability Architecture](docs/images/pihole-observability-architecture.png)
 
-Docker Compose orchestrates all services and networking.
+This architecture demonstrates a containerised Pi-hole observability stack running on a Raspberry Pi using Docker Compose. Prometheus scrapes DNS metrics from the Pi-hole exporter, Grafana visualises operational dashboards and Alertmanager routes alerts to Slack via webhook notifications.
 
-## Project Structure
+---
 
-```text
-.
-├── app.py
-├── Dockerfile
-├── docker-compose.yml
-├── requirements.txt
-├── nginx/
-│   └── default.conf
-├── prometheus/
-│   └── prometheus.yml
-├── templates/
-└── README.md
-```
+## Monitoring & Alerting
+
+### Prometheus Alerts
+- High CPU usage
+- High disk usage
+- High Raspberry Pi temperature
+- Pi-hole exporter down
+- No active Pi-hole clients
+- High blocked DNS query percentage
+
+### Alert Routing
+- Prometheus evaluates alert rules
+- Alertmanager routes notifications
+- Slack webhook notifications for incidents
+
+---
+
+## Pi-hole Dashboards
+
+### Dashboard 1 — Pi-hole Operations Overview
+- Pi-hole availability
+- DNS request volume
+- Blocked DNS queries
+- Active clients
+- DNS traffic trends
+- Query resolution efficiency
+
+### Dashboard 2 — Pi-hole Analytics & Troubleshooting
+- Query type analysis
+- DNS reply analysis
+- Upstream DNS destinations
+- Client activity monitoring
+- DNS query trends
+- Resolver behaviour analysis
+
+---
 
 ## Getting Started
 
@@ -80,11 +133,16 @@ cd raspberry-pi-system-monitor
 docker compose up -d --build
 ```
 
+---
+
 ## Service Access
 
-- Flask Dashboard: `http://<pi-ip>/`
+- Pi-hole Admin UI: `http://<pi-ip>:8081`
 - Prometheus: `http://<pi-ip>:9090`
 - Grafana: `http://<pi-ip>:3000`
+- Alertmanager: `http://<pi-ip>:9093`
+
+---
 
 ## Health Check
 
@@ -92,17 +150,36 @@ docker compose up -d --build
 curl http://localhost/health
 ```
 
-## Custom Metrics Endpoint
+---
+
+## Metrics Endpoint
 
 ```bash
 curl http://localhost/metrics
 ```
 
-## Future ideas/improvements
+---
 
-- Alerting
-- Cloud deployment
-- HTTPS support
+## Operational Testing
+
+The project includes:
+
+- Live DNS traffic monitoring
+- Pi-hole client testing
+- Alert validation testing
+- Slack notification testing
+- Dashboard observability validation
+- Controlled staged rollout testing
+
+---
+
+## Future Changes
+
+- HTTPS/TLS support
 - Centralised logging
+- Grafana provisioning
+- DNS-over-HTTPS
+- Authentication and access control
+- Cloud deployment
 - CI/CD pipeline
-- Authentication
+- Uptime monitoring
