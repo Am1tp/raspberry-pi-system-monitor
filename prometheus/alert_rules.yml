@@ -28,3 +28,34 @@ groups:
         annotations:
           summary: "High Raspberry Pi temperature"
           description: "Pi temperature is above 70°C."
+
+  - name: pihole-alerts
+    rules:
+
+      - alert: PiHoleDown
+        expr: up{job="pihole"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Pi-hole exporter down"
+          description: "Prometheus cannot scrape the Pi-hole exporter."
+
+      - alert: NoActiveClients
+        expr: sum(pihole_client_count{category="active"}) == 0
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: "No active Pi-hole clients"
+          description: "No devices are actively using Pi-hole."
+
+      - alert: HighBlockedQueryPercentage
+        expr: (100 * sum(pihole_query_count{category="blocked"}) / sum(pihole_query_count{category="total"})) > 75
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High blocked query percentage"
+          description: "Blocked DNS percentage exceeded 40%."
+

@@ -14,3 +14,7 @@ scrape_configs:
   - job_name: "pimonitor"
     static_configs:
       - targets: ["pimonitor:5000"]
+
+  - job_name: "pihole"
+    static_configs:
+      - targets: ["pihole-exporter:9666"]
