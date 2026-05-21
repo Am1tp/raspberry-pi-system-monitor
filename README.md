@@ -82,7 +82,7 @@ A containerised Raspberry Pi monitoring and observability stack running on a Ras
 
 ## Architecture Diagram
 
-![Pi-hole Observability Architecture](docs/images/pihole-observability-architecture.png)
+![Architecture Diagram](docs/images/rpi-observability-architecture.png)
 
 ### Architecture Overview
 - Docker Compose orchestrates the observability stack on Raspberry Pi
