@@ -20,6 +20,12 @@ A containerised Raspberry Pi monitoring and observability stack running on a Ras
 - Slack webhook alert notifications
 - Custom Prometheus alert rules
 
+### Cloud Monitoring Integration
+- AWS CloudWatch Agent integration
+- Cloudwatch infrastructure metrics publishing
+- Hybrid local and cloud observation
+- Remote monitoring of Raspberry Pi system health
+
 ### Pi-hole DNS Monitoring
 - Pi-hole DNS filtering and telemetry
 - Pi-hole Prometheus exporter
@@ -70,16 +76,34 @@ A containerised Raspberry Pi monitoring and observability stack running on a Ras
 - Alertmanager
 - Pi-hole
 - psutil
+- AWS CloudWatch
+- AWS CLI
 
 ---
 
-## Architecture
+## Architecture Diagram
 
 ![Pi-hole Observability Architecture](docs/images/pihole-observability-architecture.png)
 
-This architecture demonstrates a containerised Pi-hole observability stack running on a Raspberry Pi using Docker Compose. Prometheus scrapes DNS metrics from the Pi-hole exporter, Grafana visualises operational dashboards and Alertmanager routes alerts to Slack via webhook notifications.
+### Architecture Overview
+
+- Docker Compose orchestrates the observability stack on Raspberry Pi
+- Flask and psutil expose custom Raspberry Pi system metrics
+- Prometheus scrapes infrastructure and Pi-hole exporter metrics
+- Grafana visualises operational and DNS telemetry dashboards
+- Alertmanager routes alerts to Slack via webhooks 
+- AWS CloudWatch provides cloud-based remote infrastructure monitoring
+- Nginx acts as a reverse proxy for internal services
 
 ---
+
+## Troubleshooting and implementation challenges
+
+- ARM64 compatibility and memory allocation issues during Fluent Bit deployment on Raspberry Pi OS resolved by transitioning to a containerised CloudWatch Agent approach
+- Docker volume mount and CloudWatch Agent configuration validation issues resolved by mounting the expected configuration directory and simplifying initial metric collection
+- AWS credential and profile resolution failures within containerised services resolved using mounted AWS configuration and profile-based authentication
+- CloudWatch metric ingestion issues resolved through layered troubleshooting of Docker, AWS CLI and CloudWatch Agent configuration
+
 
 ## Monitoring & Alerting
 
@@ -175,11 +199,13 @@ The project includes:
 
 ## Future Changes
 
+- CloudWatch alarms and SNS alert notifications
+- Additional container and Pi-hole CloudWatch metrics
 - HTTPS/TLS support
 - Centralised logging
 - Grafana provisioning
 - DNS-over-HTTPS
 - Authentication and access control
-- Cloud deployment
 - CI/CD pipeline
 - Uptime monitoring
+- Cloudflare integration
