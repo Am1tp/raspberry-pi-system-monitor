@@ -65,7 +65,6 @@ A containerised Raspberry Pi monitoring and observability stack running on a Ras
 ---
 
 ## Technology Stack
-
 - Python
 - Flask
 - Docker
@@ -86,7 +85,6 @@ A containerised Raspberry Pi monitoring and observability stack running on a Ras
 ![Pi-hole Observability Architecture](docs/images/pihole-observability-architecture.png)
 
 ### Architecture Overview
-
 - Docker Compose orchestrates the observability stack on Raspberry Pi
 - Flask and psutil expose custom Raspberry Pi system metrics
 - Prometheus scrapes infrastructure and Pi-hole exporter metrics
@@ -98,7 +96,6 @@ A containerised Raspberry Pi monitoring and observability stack running on a Ras
 ---
 
 ## Troubleshooting and implementation challenges
-
 - ARM64 compatibility and memory allocation issues during Fluent Bit deployment on Raspberry Pi OS resolved by transitioning to a containerised CloudWatch Agent approach
 - Docker volume mount and CloudWatch Agent configuration validation issues resolved by mounting the expected configuration directory and simplifying initial metric collection
 - AWS credential and profile resolution failures within containerised services resolved using mounted AWS configuration and profile-based authentication
@@ -106,6 +103,8 @@ A containerised Raspberry Pi monitoring and observability stack running on a Ras
 
 
 ## Monitoring & Alerting
+- CloudWatch alarms
+- SNS notifications
 
 ### Prometheus Alerts
 - High CPU usage
@@ -194,6 +193,7 @@ The project includes:
 - Slack notification testing
 - Dashboard observability validation
 - Controlled staged rollout testing
+- CloudWatch alarm notification testing
 
 ---
 
